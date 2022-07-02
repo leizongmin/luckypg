@@ -155,12 +155,12 @@ type SpecialItem struct {
 
 var DefineSpecials = []SpecialItem{
 	{
-		Date:        20151224,
+		Date:        1224,
 		Type:        "good",
 		Name:        "待在男（女）友身边",
 		Description: "今天晚上不要加班了吧？",
 	}, {
-		Date:        20160214,
+		Date:        214,
 		Type:        "bad",
 		Name:        "待在男（女）友身边",
 		Description: "脱团火葬场，入团保平安。",

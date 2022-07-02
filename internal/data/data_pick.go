@@ -109,7 +109,7 @@ func GetSpecials(today time.Time) ActivityGoodBad {
 	badList := make([]ActivityItem, 0)
 	daySeed := TimeToDateNumber(today)
 	for _, special := range DefineSpecials {
-		if daySeed == special.Date {
+		if daySeed == special.Date || daySeed-today.Year()*10000 == special.Date {
 			if special.Type == "good" {
 				goodList = append(goodList, ActivityItem{
 					Name: special.Name,
