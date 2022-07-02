@@ -19,9 +19,9 @@ func RandomNumber(daySeed int, indexSeed int) int {
 // PickRandomActivityItems 从数组中随机挑选 size 个
 func PickRandomActivityItems(today time.Time, array []ActivityItem, size int) []ActivityItem {
 	result := array[:]
-	dayNum := TimeToDateNumber(today)
+	daySeed := TimeToDateNumber(today)
 	for j := 0; j < len(array)-size; j++ {
-		i := RandomNumber(dayNum, j) % len(result)
+		i := RandomNumber(daySeed, j) % len(result)
 		result = append(result[0:i], result[i+1:]...)
 	}
 	return result
@@ -30,9 +30,9 @@ func PickRandomActivityItems(today time.Time, array []ActivityItem, size int) []
 // PickRandomStringItems 从数组中随机挑选 size 个
 func PickRandomStringItems(today time.Time, array []string, size int) []string {
 	result := array[:]
-	dayNum := TimeToDateNumber(today)
+	daySeed := TimeToDateNumber(today)
 	for j := 0; j < len(array)-size; j++ {
-		i := RandomNumber(dayNum, j) % len(result)
+		i := RandomNumber(daySeed, j) % len(result)
 		result = append(result[0:i], result[i+1:]...)
 	}
 	return result
@@ -83,25 +83,19 @@ func IsWeekend(today time.Time) bool {
 	return today.Day() == 0 || today.Day() == 6
 }
 
-// / 去掉一些不合今日的事件
-// func getFilteredActivities(today time.Time) []ActivityItem {
-// 	// 周末的话，只留下 weekend = true 的事件
-// 	if IsWeekend(today) {
-// 		result = make([]ActivityItem, 0)
-// 		for _, item := range DefineActivities {
-// 			if item.Weekend {
-// 				result = append(result, item)
-// 			}
-// 		}
-// 		return result
-// 	}
-//
-// 	return DefineActivities[:]
-// }
-
-type SpecialsGoodBad struct {
-	Good []SpecialItem
-	Bad  []SpecialItem
+// GetActivities 去掉一些不合今日的事件
+func GetActivities(today time.Time) []ActivityItem {
+	// 周末的话，只留下 weekend = true 的事件
+	if IsWeekend(today) {
+		result := make([]ActivityItem, 0)
+		for _, item := range DefineActivities {
+			if item.Weekend {
+				result = append(result, item)
+			}
+		}
+		return result
+	}
+	return DefineActivities[:]
 }
 
 type ActivityGoodBad struct {
@@ -109,54 +103,49 @@ type ActivityGoodBad struct {
 	Bad  []ActivityItem
 }
 
-// // / 添加预定义事件
-// func pickSpecials() SpecialsGoodBad {
-// 	goodList := make([]SpecialItem, 0)
-// 	badList := make([]SpecialItem, 0)
-// 	dayNum := TimeToDateNumber(today)
-// 	for _, special := range DefineSpecials {
-// 		if dayNum == special.Date {
-// 			if special.Type == "good" {
-// 				goodList = append(goodList, SpecialItem{
-// 					Name: special.Name,
-// 					Good: special.Description,
-// 				})
-// 			} else {
-// 				badList = append(badList, SpecialItem{
-// 					Name: special.Name,
-// 					bad:  special.Description,
-// 				})
-// 			}
-// 		}
-// 	}
-//
-// 	return SpecialsGoodBad{Good: goodList, Bad: badList}
-// }
+// GetSpecials 今天的特别事件
+func GetSpecials(today time.Time) ActivityGoodBad {
+	goodList := make([]ActivityItem, 0)
+	badList := make([]ActivityItem, 0)
+	daySeed := TimeToDateNumber(today)
+	for _, special := range DefineSpecials {
+		if daySeed == special.Date {
+			if special.Type == "good" {
+				goodList = append(goodList, ActivityItem{
+					Name: special.Name,
+					Good: special.Description,
+				})
+			} else {
+				badList = append(badList, ActivityItem{
+					Name: special.Name,
+					Bad:  special.Description,
+				})
+			}
+		}
+	}
+	return ActivityGoodBad{Good: goodList, Bad: badList}
+}
 
-// / 生成今日运势
-// func pickTodaysLuck(today time.Time) SpecialsGoodBad {
-// 	dayNum := TimeToDateNumber(today)
-// 	filteredActivities := getFilteredActivities(today)
-//
-// 	numGood := RandomNumber(dayNum, 98)%3 + 2
-// 	numBad := RandomNumber(dayNum, 87)%3 + 2
-// 	eventArr := PickRandomActivity(today, filteredActivities, numGood+numBad)
-//
-// 	special := pickSpecials()
-//
-// 	goodList := special.Good
-// 	badList := special.Bad
-//
-// 	for i := 0; i < numGood; i++ {
-// 		goodList = append(goodList, eventArr[i])
-// 	}
-//
-// 	for i := 0; i < numBad; i++ {
-// 		badList = append(badList, eventArr[numGood+i])
-// 	}
-//
-// 	return SpecialsGoodBad{Good: goodList[:4], Bad: badList[:4]}
-// }
+// TodayLuck 生成今日运势
+func TodayLuck(today time.Time, n int) ActivityGoodBad {
+	// daySeed := TimeToDateNumber(today)
+	numGood := n // RandomNumber(daySeed, 98)%3 + 2
+	numBad := n  // RandomNumber(daySeed, 87)%3 + 2
+	activities := PickRandomActivity(today, GetActivities(today), numGood+numBad)
+
+	special := GetSpecials(today)
+	goodList := special.Good
+	badList := special.Bad
+
+	for i := 0; i < numGood; i++ {
+		goodList = append(goodList, activities[i])
+	}
+	for i := 0; i < numBad; i++ {
+		badList = append(badList, activities[numGood+i])
+	}
+
+	return ActivityGoodBad{Good: goodList[:n], Bad: badList[:n]}
+}
 
 // TodayDirection 获得座位朝向
 func TodayDirection(today time.Time) string {

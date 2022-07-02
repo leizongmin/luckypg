@@ -120,6 +120,9 @@ func main() {
 			c := console.XTermColorFunc(240, 210)
 			return console.FixedWidthText(s, bodyBoxWidth, c, c)
 		}
+
+		luck := data.TodayLuck(today, 4)
+
 		goodLeftLines := []string{
 			B1(""),
 			B1(""),
@@ -134,14 +137,14 @@ func main() {
 		}
 		goodRightLines := []string{
 			B21(""),
-			B21("  白天上线"),
-			B22("    今天白天上线是安全的"),
-			B21("  招人"),
-			B22("    你面前这位有成为牛人的潜质"),
-			B21("  提交代码"),
-			B22("    遇到冲突的几率是最低的"),
-			B21("  代码审核"),
-			B22("    发现重要问题的几率大大增加"),
+			B21("  " + luck.Good[0].Name),
+			B22("    " + luck.Good[0].Good),
+			B21("  " + luck.Good[1].Name),
+			B22("    " + luck.Good[1].Good),
+			B21("  " + luck.Good[2].Name),
+			B22("    " + luck.Good[2].Good),
+			B21("  " + luck.Good[3].Name),
+			B22("    " + luck.Good[3].Good),
 			B21(""),
 		}
 		badLeftLines := []string{
@@ -158,14 +161,14 @@ func main() {
 		}
 		badRightLines := []string{
 			B41(""),
-			B41("  开会"),
-			B42("    小心被扣屎盆子背黑锅"),
-			B41("  晚上上线"),
-			B42("    你白天已经精疲力尽了"),
-			B41("  修复BUG"),
-			B42("    新产生的BUG将比修复的更多"),
-			B41("  需求审核"),
-			B42("    未知"),
+			B41("  " + luck.Bad[0].Name),
+			B42("    " + luck.Bad[0].Bad),
+			B41("  " + luck.Bad[1].Name),
+			B42("    " + luck.Bad[1].Bad),
+			B41("  " + luck.Bad[2].Name),
+			B42("    " + luck.Bad[2].Bad),
+			B41("  " + luck.Bad[3].Name),
+			B42("    " + luck.Bad[3].Bad),
 			B41(""),
 		}
 		for i := range goodLeftLines {

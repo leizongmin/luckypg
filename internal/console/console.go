@@ -44,8 +44,14 @@ func CenteredText(s string, n int, textColorFunc RenderColorFunc, spaceColorFunc
 			line := line + strings.Repeat(" ", maxLength-TextDisplayLength(line))
 			n1 := (n - maxLength) / 2
 			n2 := n - maxLength - n1
-			left := strings.Repeat(" ", n1)
-			right := strings.Repeat(" ", n2)
+			left := ""
+			right := ""
+			if n1 > 0 {
+				left = strings.Repeat(" ", n1)
+			}
+			if n2 > 0 {
+				right = strings.Repeat(" ", n2)
+			}
 			lines[i] = spaceColorFunc(left) + textColorFunc(line) + spaceColorFunc(right)
 		}
 		return strings.Join(lines, "\n")
@@ -64,8 +70,13 @@ func FixedWidthText(s string, n int, textColorFunc RenderColorFunc, spaceColorFu
 			}
 		}
 		for i, line := range lines {
-			right := strings.Repeat(" ", n-maxLength)
-			lines[i] = textColorFunc(line) + spaceColorFunc(right)
+			n1 := n - maxLength
+			if n1 > 0 {
+				right := strings.Repeat(" ", n1)
+				lines[i] = textColorFunc(line) + spaceColorFunc(right)
+			} else {
+				lines[i] = textColorFunc(line)
+			}
 		}
 		return strings.Join(lines, "\n")
 	}
