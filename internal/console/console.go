@@ -36,7 +36,7 @@ func TextDisplayLength(s string) int {
 }
 
 // 每行文本居中，指定最大宽度，两边自动补空格，超出自动截断
-func CenteredText(s string, n int) string {
+func CenteredText(s string, n int, textColorFunc RenderColorFunc, spaceColorFunc RenderColorFunc) string {
 	if n > 0 {
 		lines := strings.Split(s, "\n")
 		maxLength := 0
@@ -51,7 +51,7 @@ func CenteredText(s string, n int) string {
 			n2 := n - maxLength - n1
 			left := strings.Repeat(" ", n1)
 			right := strings.Repeat(" ", n2)
-			lines[i] = left + line + right
+			lines[i] = spaceColorFunc(left) + textColorFunc(line) + spaceColorFunc(right)
 		}
 		return strings.Join(lines, "\n")
 	}
@@ -59,7 +59,7 @@ func CenteredText(s string, n int) string {
 }
 
 // 文本左对齐，指定最大宽度，不足自动补空格，超出自动截断
-func FixedWidthText(s string, n int) string {
+func FixedWidthText(s string, n int, textColorFunc RenderColorFunc, spaceColorFunc RenderColorFunc) string {
 	if n > 0 {
 		lines := strings.Split(s, "\n")
 		maxLength := 0
@@ -70,7 +70,7 @@ func FixedWidthText(s string, n int) string {
 		}
 		for i, line := range lines {
 			right := strings.Repeat(" ", n-maxLength)
-			lines[i] = line + right
+			lines[i] = textColorFunc(line) + spaceColorFunc(right)
 		}
 		return strings.Join(lines, "\n")
 	}
