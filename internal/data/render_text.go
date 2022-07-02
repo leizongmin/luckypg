@@ -1,9 +1,10 @@
 package data
 
 import (
-	"strconv"
 	"strings"
 	"time"
+
+	"github.com/leizongmin/luckypg/internal/nostd"
 )
 
 // RenderText 解析占位符并替换成随机内容
@@ -28,7 +29,7 @@ func RenderText(today time.Time, event ActivityItem) ActivityItem {
 	}
 
 	if strings.Contains(result.Name, "%l") {
-		s := strconv.Itoa(RandomNumber(dayNum, 12)%247 + 30)
+		s := nostd.Itoa(RandomNumber(dayNum, 12)%247 + 30)
 		result.Name = strings.ReplaceAll(result.Name, "%l", s)
 	}
 
