@@ -3,7 +3,7 @@ package console
 import (
 	"strings"
 
-	"github.com/acarl005/stripansi"
+	"github.com/leizongmin/luckypg/internal/nostd"
 )
 
 var TerminalWidth = 0
@@ -15,7 +15,7 @@ func init() {
 
 // TextStripAnsi 去除 ANSI 控制字符
 func TextStripAnsi(s string) string {
-	return stripansi.Strip(s)
+	return nostd.StripAnsi(s)
 }
 
 // GetCharDisplayLength 获取字符在控制台的显示宽度
