@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/leizongmin/luckypg/internal/console"
+	"github.com/leizongmin/luckypg/internal/data"
 )
 
 var header = `
@@ -37,6 +39,7 @@ func init() {
 }
 
 func main() {
+	today := time.Now()
 	L := func(s string) {
 		fmt.Println(s)
 	}
@@ -69,15 +72,14 @@ func main() {
 			return console.XTermColor(196, 250, s)
 		}
 
-		date := "2015年12月15日"
-		week := "星期二"
-		direction := "西南方"
-		stars := "★★★★☆"
-		drink := "绿茶、鲜奶"
+		date := data.TodayDate(today)
+		direction := data.TodayDirection(today)
+		stars := data.TodayStars(today)
+		drink := data.TodayDrink(today)
 
 		lines := []string{
 			B2(""),
-			B2("今天是" + date + " " + week),
+			B2("今天是" + date),
 			B2(""),
 			B2("座位朝向：面向" + c2(direction) + c1("写程序，BUG 最少")),
 			B2("今日宜饮：" + drink),
