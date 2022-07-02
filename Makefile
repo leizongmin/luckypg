@@ -13,8 +13,9 @@ $(OUTDIR):
 	@mkdir -p $(OUTDIR)
 
 $(OUTDIR)/$(APPNAME): $(OUTDIR) main.go
-	@$(TINYGO) build -o $@ main.go
+	@$(TINYGO) build -gc leaking -scheduler none -opt z -o $@ main.go
 	@strip $@
+	@upx $@
 	@ls -ahl $@
 
 .PHONY: run

@@ -4,18 +4,13 @@ import (
 	"strings"
 
 	"github.com/acarl005/stripansi"
-	"golang.org/x/term"
 )
 
 var TerminalWidth = 0
 var TerminalHeight = 0
 
 func init() {
-	width, height, err := term.GetSize(0)
-	if err == nil {
-		TerminalWidth = width
-		TerminalHeight = height
-	}
+	// TODO: get terminal width and height
 }
 
 // 获取文本在控制台的显示宽度，自动忽略 ANSI Color 字符
