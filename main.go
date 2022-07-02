@@ -1,12 +1,12 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 	"time"
 
 	"github.com/leizongmin/luckypg/internal/console"
 	"github.com/leizongmin/luckypg/internal/data"
+	"github.com/leizongmin/luckypg/internal/nostd"
 )
 
 var header = `
@@ -41,7 +41,7 @@ func init() {
 func main() {
 	today := time.Now()
 	L := func(s string) {
-		fmt.Println(s)
+		nostd.Println(s)
 	}
 	S := func(s string) string {
 		return console.CenteredText(s, screenWidth, console.NoColorRenderFunc, console.NoColorRenderFunc)

@@ -1,9 +1,10 @@
 package data
 
 import (
-	"fmt"
 	"strings"
 	"time"
+
+	"github.com/leizongmin/luckypg/internal/nostd"
 )
 
 // RandomNumber 注意：本程序中的“随机”都是伪随机概念，以当前的天为种子。
@@ -58,7 +59,11 @@ func WeekdayString(weekday time.Weekday) string {
 
 // TodayDate 今天的日期
 func TodayDate(today time.Time) string {
-	return fmt.Sprintf("今天是%d年%d月%d日 星期%s", today.Year(), today.Month(), today.Day(), WeekdayString(today.Weekday()))
+	y := nostd.Itoa(today.Year())
+	m := nostd.Itoa(int(today.Month()))
+	d := nostd.Itoa(today.Day())
+	w := WeekdayString(today.Weekday())
+	return "今天是" + y + "年" + m + "月" + d + "日 星期" + w
 }
 
 // GenerateStars 生成星星
