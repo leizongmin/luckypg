@@ -3,10 +3,10 @@ package main
 import (
 	"strings"
 
-	. "github.com/leizongmin/luckypg/internal/console"
+	"github.com/leizongmin/luckypg/internal/console"
 )
 
-var header string = `
+var header = `
                    _oo8oo_
                   o8888888o
                   88" . "88
@@ -28,7 +28,7 @@ var header string = `
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 `
 
-var screenWidth = TerminalWidth
+var screenWidth = console.TerminalWidth
 var boxWidth = 80
 
 func init() {
@@ -36,48 +36,45 @@ func init() {
 }
 
 func main() {
-	println(Yellow(CenteredText(header, screenWidth)))
+	L := func(s string) {
+		println(s)
+	}
+	S := func(s string) string {
+		return console.CenteredText(s, screenWidth)
+	}
+	L(console.Yellow(S(header)))
 
 	{
-		c1 := func (s string) string{
-			return XTermColor(0, 250, s)
+		B1 := func(s string) string {
+			return console.CenteredText(s, boxWidth)
 		}
-		c2 := func (s string) string{
-			return XTermColor(28, 250, s)
+		B2 := func(s string) string {
+			return console.FixedWidthText(s, boxWidth-boxWidth/4)
 		}
-		c3 := func (s string) string{
-			return XTermColor(196, 250, s)
+		c1 := func(s string) string {
+			return console.XTermColor(0, 250, s)
 		}
-		println(CenteredText(CenteredText("", boxWidth), screenWidth))
-		println(CenteredText(FixedWidthText("今天是2015年12月15日 星期二", boxWidth), screenWidth))
-		println(CenteredText(FixedWidthText("", boxWidth), screenWidth))
-		println(CenteredText(FixedWidthText("座位朝向：面向"+c2( "西南方")+"写程序，BUG 最少", boxWidth), screenWidth))
-		println(CenteredText(FixedWidthText("今日宜饮：绿茶、鲜奶", boxWidth), screenWidth))
-		println(CenteredText(FixedWidthText("女神亲近指数："+c3("★★★★☆"), boxWidth), screenWidth))
-		println(CenteredText(CenteredText("", boxWidth), screenWidth))
+
+		// c2 := func(s string) string {
+		// 	return console.XTermColor(28, 250, s)
+		// }
+		// c3 := func(s string) string {
+		// 	return console.XTermColor(196, 250, s)
+		// }
+		direction := "西南方"
+		stars := "★★★★☆"
+
+		lines := []string{
+			B2(""),
+			B2("  今天是2015年12月15日 星期二"),
+			B2(""),
+			B2("  座位朝向：面向" + direction + "写程序，BUG 最少"),
+			B2("  今日宜饮：绿茶、鲜奶"),
+			B2("  女神亲近指数：" + stars),
+			B2(""),
+		}
+		for _, s := range lines {
+			L(S(c1(B1(s))))
+		}
 	}
-}
-
-func color0(s string) string {
-	return XTermColor(227, 0, s)
-}
-
-func color1(s string) string {
-	return XTermColor(0, 250, s)
-}
-
-func color2(s string) string {
-	return XTermColor(0, 229, s)
-}
-
-func color3(s string) string {
-	return XTermColor(0, 220, s)
-}
-
-func color4(s string) string {
-	return XTermColor(0, 210, s)
-}
-
-func color5(s string) string {
-	return XTermColor(0, 196, s)
 }
