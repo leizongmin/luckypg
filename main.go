@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 
 	"github.com/leizongmin/luckypg/internal/console"
@@ -37,7 +38,7 @@ func init() {
 
 func main() {
 	L := func(s string) {
-		println(s)
+		fmt.Println(s)
 	}
 	S := func(s string) string {
 		return console.CenteredText(s, screenWidth, console.NoColorRenderFunc, console.NoColorRenderFunc)
