@@ -13,24 +13,49 @@ func init() {
 	// TODO: get terminal width and height
 }
 
-// 获取文本在控制台的显示宽度，自动忽略 ANSI Color 字符
+// TextStripAnsi 去除 ANSI 控制字符
+func TextStripAnsi(s string) string {
+	return stripansi.Strip(s)
+}
+
+// GetCharDisplayLength 获取字符在控制台的显示宽度
+func GetCharDisplayLength(c rune) int {
+	if c < 256 {
+		return 1
+	} else if c >= 0x2600 && c <= 0x26ff {
+		// 符号，https://www.compart.com/en/unicode/block/U+2600
+		return 1
+	} else {
+		return 2
+	}
+}
+
+func TextRemoveExceed(s string, n int) string {
+	count := 0
+	runes := []rune(TextStripAnsi(s))
+	result := make([]rune, 0)
+	for _, r := range runes {
+		count += GetCharDisplayLength(r)
+		if count < n {
+			result = append(result, r)
+		} else {
+			break
+		}
+	}
+	return string(result)
+}
+
+// TextDisplayLength 获取文本在控制台的显示宽度，自动忽略 ANSI Color 字符
 func TextDisplayLength(s string) int {
 	count := 0
-	runes := []rune(stripansi.Strip(s))
+	runes := []rune(TextStripAnsi(s))
 	for _, r := range runes {
-		if r < 256 {
-			count++
-		} else if r >= 0x2600 && r <= 0x26ff {
-			// 符号，https://www.compart.com/en/unicode/block/U+2600
-			count++
-		} else {
-			count += 2
-		}
+		count += GetCharDisplayLength(r)
 	}
 	return count
 }
 
-// 每行文本居中，指定最大宽度，两边自动补空格，超出自动截断
+// CenteredText 每行文本居中，指定最大宽度，两边自动补空格，超出自动截断
 func CenteredText(s string, n int, textColorFunc RenderColorFunc, spaceColorFunc RenderColorFunc) string {
 	if n > 0 {
 		lines := strings.Split(s, "\n")
@@ -59,7 +84,7 @@ func CenteredText(s string, n int, textColorFunc RenderColorFunc, spaceColorFunc
 	return s
 }
 
-// 文本左对齐，指定最大宽度，不足自动补空格，超出自动截断
+// FixedWidthText 文本左对齐，指定最大宽度，不足自动补空格，超出自动截断
 func FixedWidthText(s string, n int, textColorFunc RenderColorFunc, spaceColorFunc RenderColorFunc) string {
 	if n > 0 {
 		lines := strings.Split(s, "\n")

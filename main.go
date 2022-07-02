@@ -122,6 +122,9 @@ func main() {
 		}
 
 		luck := data.TodayLuck(today, 4)
+		strip := func(s string) string {
+			return console.TextRemoveExceed(s, bodyBoxWidth-4)
+		}
 
 		goodLeftLines := []string{
 			B1(""),
@@ -138,13 +141,13 @@ func main() {
 		goodRightLines := []string{
 			B21(""),
 			B21("  " + luck.Good[0].Name),
-			B22("    " + luck.Good[0].Good),
+			B22("    " + strip(luck.Good[0].Good)),
 			B21("  " + luck.Good[1].Name),
-			B22("    " + luck.Good[1].Good),
+			B22("    " + strip(luck.Good[1].Good)),
 			B21("  " + luck.Good[2].Name),
-			B22("    " + luck.Good[2].Good),
+			B22("    " + strip(luck.Good[2].Good)),
 			B21("  " + luck.Good[3].Name),
-			B22("    " + luck.Good[3].Good),
+			B22("    " + strip(luck.Good[3].Good)),
 			B21(""),
 		}
 		badLeftLines := []string{
@@ -162,13 +165,13 @@ func main() {
 		badRightLines := []string{
 			B41(""),
 			B41("  " + luck.Bad[0].Name),
-			B42("    " + luck.Bad[0].Bad),
+			B42("    " + strip(luck.Bad[0].Bad)),
 			B41("  " + luck.Bad[1].Name),
-			B42("    " + luck.Bad[1].Bad),
+			B42("    " + strip(luck.Bad[1].Bad)),
 			B41("  " + luck.Bad[2].Name),
-			B42("    " + luck.Bad[2].Bad),
+			B42("    " + strip(luck.Bad[2].Bad)),
 			B41("  " + luck.Bad[3].Name),
-			B42("    " + luck.Bad[3].Bad),
+			B42("    " + strip(luck.Bad[3].Bad)),
 			B41(""),
 		}
 		for i := range goodLeftLines {
