@@ -1,4 +1,4 @@
-name: Go
+name: Release
 
 on:
   push:
@@ -17,12 +17,12 @@ jobs:
       uses: actions/setup-go@v3
       with:
         go-version: 1.18
-        
+
     - name: Install tinygo
       run: wget https://github.com/tinygo-org/tinygo/releases/download/v0.23.0/tinygo_0.23.0_amd64.deb && sudo dpkg -i tinygo_0.23.0_amd64.deb
 
     - name: Install upx
-      run: apt update && apt install -y upx
+      run: sudo apt update && sudo apt install -y upx
 
     - name: Build
       run: make
