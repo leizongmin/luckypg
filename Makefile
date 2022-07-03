@@ -23,7 +23,7 @@ $(OUTDIR):
 
 $(OUTDIR)/$(APPNAME): $(OUTDIR) $(SOURCES)
 	@echo "building with go..."
-	go build -a -gcflags=all="-l -B -wb=false" -ldflags="-s -w" -o $@ main.go
+	@go build -a -gcflags=all="-l -B -wb=false" -ldflags="-s -w" -o $@ main.go
 	@$(STRIP) $@
 	@$(UPX) $@
 	@ls -ahl $@

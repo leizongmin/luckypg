@@ -29,6 +29,15 @@ Time get_local_time() {
 	t.sec = timeinfo.tm_sec;
 	return t;
 }
+
+// FIXME: 由于 tinygo 目前对 cgo 支持还有 bug，暂时不能直接返回 struct
+int get_local_time_year() { return get_local_time().year; }
+int get_local_time_month() { return get_local_time().month; }
+int get_local_time_day() { return get_local_time().day; }
+int get_local_time_wday() { return get_local_time().wday; }
+int get_local_time_hour() { return get_local_time().hour; }
+int get_local_time_min() { return get_local_time().min; }
+int get_local_time_sec() { return get_local_time().sec; }
 */
 import "C"
 
@@ -71,15 +80,14 @@ func (t *Time) Second() int {
 }
 
 func TimeNow() Time {
-	t := C.get_local_time()
 	return Time{
-		year:    int(t.year),
-		month:   int(t.month),
-		day:     int(t.day),
-		weekday: int(t.wday),
-		hour:    int(t.hour),
-		minute:  int(t.min),
-		second:  int(t.sec),
+		year:    int(C.get_local_time_year()),
+		month:   int(C.get_local_time_month()),
+		day:     int(C.get_local_time_day()),
+		weekday: int(C.get_local_time_wday()),
+		hour:    int(C.get_local_time_hour()),
+		minute:  int(C.get_local_time_min()),
+		second:  int(C.get_local_time_sec()),
 	}
 }
 
