@@ -8,18 +8,23 @@
 具有以下特点：
 
 - 完全静态编译，不需要依赖任何动态库，放哪里都能跑；
-- 可执行文件很小，在 macOS 上文件体积是 **16KB**，在 Linux 上文件体积是 20KB；
+- 可执行文件很小，在 macOS 上文件体积是 **16KB**，在 Linux 上文件体积是 **20KB**；
 - 执行很快，约 ~10ms；
-
-可通过 [Release](https://github.com/leizongmin/luckypg/releases) 页面下载，目前构建产物支持 macOS 和 Linux。
 
 目前还存在的问题：
 
-- 文案数据还比较少，需要继续丰富；
+- 文案数据还比较少，需要继续丰富（原始文案数据非原创）；
 - 显示界面是固定 80 字符宽度的，方块是左对齐，本来是计划自动显示在屏幕中间，
   为了追求更小的文件体积，使用 tinygo 编译时有些问题未解决，所以暂时放弃；
 
 ![screenshot](screenshot.png)
+
+## 使用
+
+可通过 [Release](https://github.com/leizongmin/luckypg/releases) 页面下载，目前构建产物支持 macOS 和 Linux。
+
+下载对应系统的构建产物，例如在 macOS 上对应的是 `luckypg-macos`，将其保存到为`/usr/local/bin/luckypg`，
+然后将其添加到 `~/.profile` 文件，使得每次进入 Shell 的时候都会执行 `luckypg` 即可，可根据自己当前的环境灵活配置。
 
 ## 开发
 
