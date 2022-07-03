@@ -60,7 +60,7 @@ func TodayDate(today nostd.Time) string {
 	m := nostd.Itoa(int(today.Month()))
 	d := nostd.Itoa(today.Day())
 	w := WeekdayString(today.Weekday())
-	return "今天是" + y + "年" + m + "月" + d + "日 星期" + w
+	return y + "年" + m + "月" + d + "日 星期" + w
 }
 
 // GenerateStars 生成星星

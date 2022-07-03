@@ -78,7 +78,7 @@ func main() {
 			B2(""),
 			B2("今天是" + date),
 			B2(""),
-			B2("座位朝向：面向" + c2(direction) + c1("写程序，BUG 最少")),
+			B2("座位朝向：面向" + c2(direction) + c1("写程序，BUG最少")),
 			B2("今日宜饮：" + drink),
 			B2("女神亲近指数：" + c3(stars)),
 			B2(""),
