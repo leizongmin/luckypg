@@ -8,10 +8,10 @@ on:
 
 jobs:
 
-  pre-release:
+  build:
     strategy:
       matrix:
-        os: [  ubuntu-latest, macos-latest ]
+        os: [ ubuntu-latest, macos-latest ]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
@@ -38,15 +38,32 @@ jobs:
         run: |
           make
 
-      - name: Collecting build artifacts on Ubuntu
+      - name: Upload artifacts on Ubuntu
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        run: mv out/luckypg out/luckypg-linux
+        uses: actions/upload-artifact@v3
+        with:
+          name: luckypg-linux
+          path: out/luckypg
 
-      - name: Collecting build artifacts on macOS
+      - name: Upload artifacts on macOS
         if: ${{ matrix.os == 'macos-latest' }}
-        run: mv out/luckypg out/luckypg-macos
+        uses: actions/upload-artifact@v3
+        with:
+          name: luckypg-macos
+          path: out/luckypg
 
-      - uses: marvinpinto/action-automatic-releases@latest
+  pre-release:
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: out
+
+      - name: Create Pre-release
+        uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
