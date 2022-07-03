@@ -77,4 +77,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            luckypg*
+            artifact/*
