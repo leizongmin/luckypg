@@ -1,8 +1,6 @@
 package main
 
 import (
-	"strings"
-
 	"github.com/leizongmin/luckypg/internal/console"
 	"github.com/leizongmin/luckypg/internal/data"
 	"github.com/leizongmin/luckypg/internal/nostd"
@@ -34,7 +32,7 @@ var screenWidth = console.TerminalWidth
 var boxWidth = 80
 
 func init() {
-	header = strings.Trim(header, "\n")
+	header = nostd.Trim(header, "\n")
 }
 
 func main() {

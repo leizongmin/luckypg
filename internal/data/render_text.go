@@ -1,8 +1,6 @@
 package data
 
 import (
-	"strings"
-
 	"github.com/leizongmin/luckypg/internal/nostd"
 )
 
@@ -17,19 +15,19 @@ func RenderText(today nostd.Time, event ActivityItem) ActivityItem {
 		Bad:  event.Bad,
 	}
 	dayNum := TimeToDateNumber(today)
-	if strings.Contains(result.Name, "%v") {
+	if nostd.Contains(result.Name, "%v") {
 		s := DefineVariableNames[RandomNumber(dayNum, 12)%len(DefineVariableNames)]
-		result.Name = strings.ReplaceAll(result.Name, "%v", s)
+		result.Name = nostd.ReplaceAll(result.Name, "%v", s)
 	}
 
-	if strings.Contains(result.Name, "%t") {
+	if nostd.Contains(result.Name, "%t") {
 		s := DefineTools[RandomNumber(dayNum, 11)%len(DefineTools)]
-		result.Name = strings.ReplaceAll(result.Name, "%t", s)
+		result.Name = nostd.ReplaceAll(result.Name, "%t", s)
 	}
 
-	if strings.Contains(result.Name, "%l") {
+	if nostd.Contains(result.Name, "%l") {
 		s := nostd.Itoa(RandomNumber(dayNum, 12)%247 + 30)
-		result.Name = strings.ReplaceAll(result.Name, "%l", s)
+		result.Name = nostd.ReplaceAll(result.Name, "%l", s)
 	}
 
 	return result

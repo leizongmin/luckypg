@@ -1,8 +1,6 @@
 package data
 
 import (
-	"strings"
-
 	"github.com/leizongmin/luckypg/internal/nostd"
 )
 
@@ -159,7 +157,7 @@ func TodayDirection(today nostd.Time) string {
 // TodayDrink 获得今日宜饮
 func TodayDrink(today nostd.Time) string {
 	list := PickRandomStringItems(today, DefineDrinks, 2)
-	return strings.Join(list, "，")
+	return nostd.Join(list, "，")
 }
 
 // TodayStars 获得女神亲近指数
