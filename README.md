@@ -23,6 +23,8 @@
 
 ```bash
 # 安装 go
+wget https://go.dev/dl/go1.18.3.linux-amd64.tar.gz && \
+  rm -rf /usr/local/go && tar -C /usr/local -xzf go1.18.3.linux-amd64.tar.gz
 # 安装 tinygo
 wget https://github.com/tinygo-org/tinygo/releases/download/v0.23.0/tinygo_0.23.0_amd64.deb
 sudo dpkg -i tinygo_0.23.0_amd64.deb
