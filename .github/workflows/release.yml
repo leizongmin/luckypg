@@ -60,7 +60,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v3
         with:
-          path: out
+          path: .
 
       - name: Create Pre-release
         uses: marvinpinto/action-automatic-releases@latest
@@ -70,4 +70,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            out/*
+            luckypg*
