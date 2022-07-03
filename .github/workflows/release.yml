@@ -45,6 +45,9 @@ jobs:
           make
           mv out/luckypg out/luckypg-macos
 
+      - name: Run Tests
+        run: make test
+
       - name: Upload artifacts on Ubuntu
         if: ${{ matrix.os == 'ubuntu-latest' }}
         uses: actions/upload-artifact@v3

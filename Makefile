@@ -50,3 +50,7 @@ info:
 	@echo OUTDIR=$(OUTDIR)
 	@echo OUTDIR=$(OUTDIR)
 	@echo APPNAME=$(APPNAME)
+
+.PHONY: test
+test:
+	@go test github.com/leizongmin/luckypg/...
