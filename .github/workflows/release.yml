@@ -37,12 +37,14 @@ jobs:
         if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           make
+          ./out/luckypg
           mv out/luckypg out/luckypg-linux
 
       - name: Build on macOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
           make
+          ./out/luckypg
           mv out/luckypg out/luckypg-macos
 
       - name: Run Tests
