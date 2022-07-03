@@ -59,8 +59,9 @@ jobs:
 
       - name: Download artifacts
         uses: actions/download-artifact@v3
-        with:
-          path: .
+
+      - name: Display structure of downloaded files
+        run: ls -R
 
       - name: Create Pre-release
         uses: marvinpinto/action-automatic-releases@latest

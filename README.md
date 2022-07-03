@@ -11,6 +11,8 @@
 - 可执行文件很小，在 macOS 上文件体积是 **16KB**，在 Linux 上文件体积是 20KB；
 - 执行很快，约 ~10ms；
 
+可通过 [Release](https://github.com/leizongmin/luckypg/releases) 页面下载，目前构建产物支持 macOS 和 Linux。
+
 目前还存在的问题：
 
 - 文案数据还比较少，需要继续丰富；
