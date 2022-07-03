@@ -11,8 +11,7 @@ SOURCES ?= 	$(wildcard *.go) \
 			$(wildcard internal/console/*.go)
 
 .PHONY: all
-all: 	$(OUTDIR)/$(APPNAME) \
-		$(OUTDIR)/$(APPNAME)_min
+all: $(OUTDIR)/$(APPNAME)
 
 .PHONY: clean
 clean:
@@ -21,14 +20,14 @@ clean:
 $(OUTDIR):
 	@mkdir -p $(OUTDIR)
 
-$(OUTDIR)/$(APPNAME): $(OUTDIR) $(SOURCES)
+$(OUTDIR)/$(APPNAME)_normal: $(OUTDIR) $(SOURCES)
 	@echo "building with go..."
 	@go build -a -gcflags=all="-l -B -wb=false" -ldflags="-s -w" -o $@ main.go
 	@$(STRIP) $@
 	@$(UPX) $@
 	@ls -ahl $@
 
-$(OUTDIR)/$(APPNAME)_min: $(OUTDIR) $(SOURCES)
+$(OUTDIR)/$(APPNAME): $(OUTDIR) $(SOURCES)
 	@if command -v $(TINYGO) &> /dev/null; then \
   		echo "building with tinygo..."; \
 		$(TINYGO) build -gc leaking -scheduler none -opt z -o $@ main.go; \
