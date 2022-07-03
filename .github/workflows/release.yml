@@ -21,15 +21,15 @@ jobs:
         with:
           go-version: 1.18
 
-      - name: Install Dependencies on ${{ runner.os }}
-        if: ${{ runner.os == 'ubuntu-latest' }}
+      - name: Install Dependencies on ${{ matrix.os }}
+        if: ${{ matrix.os == 'ubuntu-latest' }}
         run: |
           wget https://github.com/tinygo-org/tinygo/releases/download/v0.23.0/tinygo_0.23.0_amd64.deb
           sudo dpkg -i tinygo_0.23.0_amd64.deb
           sudo apt update && sudo apt install -y upx
 
-      - name: Install Dependencies on ${{ runner.os }}
-        if: ${{ runner.os == 'macos-latest' }}
+      - name: Install Dependencies on ${{ matrix.os }}
+        if: ${{ matrix.os == 'macos-latest' }}
         run: |
           brew tap tinygo-org/tools
           brew install golang tinygo upx
@@ -37,7 +37,7 @@ jobs:
       - name: Build
         run: |
           make
-          mv out/luckypg out/luckypg-${{ runner.os }}
+          mv out/luckypg out/luckypg-${{ matrix.os }}
 
       - uses: marvinpinto/action-automatic-releases@latest
         with:
