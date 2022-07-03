@@ -26,6 +26,17 @@
 下载对应系统的构建产物，例如在 macOS 上对应的是 `luckypg-macos`，将其保存到为`/usr/local/bin/luckypg`，
 然后将其添加到 `~/.profile` 文件，使得每次进入 Shell 的时候都会执行 `luckypg` 即可，可根据自己当前的环境灵活配置。
 
+FreeBSD 系统可以通过 **go** 命令自行构建：
+
+```bash
+# 安装 go
+pkg install -y go
+# 安装 luckypg
+go install github.com/leizongmin/luckypg
+# 构建产物位置
+~/go/bin/luckypg
+```
+
 ## 开发
 
 在 Ubuntu/Debian 中初始化环境：
