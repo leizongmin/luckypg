@@ -2,7 +2,6 @@ package data
 
 import (
 	"strings"
-	"time"
 
 	"github.com/leizongmin/luckypg/internal/nostd"
 )
@@ -18,7 +17,7 @@ func RandomNumber(daySeed int, indexSeed int) int {
 }
 
 // PickRandomActivityItems 从数组中随机挑选 size 个
-func PickRandomActivityItems(today time.Time, array []ActivityItem, size int) []ActivityItem {
+func PickRandomActivityItems(today nostd.Time, array []ActivityItem, size int) []ActivityItem {
 	result := array[:]
 	daySeed := TimeToDateNumber(today)
 	for j := 0; j < len(array)-size; j++ {
@@ -29,7 +28,7 @@ func PickRandomActivityItems(today time.Time, array []ActivityItem, size int) []
 }
 
 // PickRandomStringItems 从数组中随机挑选 size 个
-func PickRandomStringItems(today time.Time, array []string, size int) []string {
+func PickRandomStringItems(today nostd.Time, array []string, size int) []string {
 	result := array[:]
 	daySeed := TimeToDateNumber(today)
 	for j := 0; j < len(array)-size; j++ {
@@ -40,7 +39,7 @@ func PickRandomStringItems(today time.Time, array []string, size int) []string {
 }
 
 // PickRandomActivity 从 activities 中随机挑选 size 个
-func PickRandomActivity(today time.Time, list []ActivityItem, size int) []ActivityItem {
+func PickRandomActivity(today nostd.Time, list []ActivityItem, size int) []ActivityItem {
 	pickedEvents := PickRandomActivityItems(today, list, size)
 	for i, item := range pickedEvents {
 		pickedEvents[i] = RenderText(today, item)
@@ -49,7 +48,7 @@ func PickRandomActivity(today time.Time, list []ActivityItem, size int) []Activi
 }
 
 // WeekdayString 返回星期几的文本描述
-func WeekdayString(weekday time.Weekday) string {
+func WeekdayString(weekday nostd.Weekday) string {
 	n := int(weekday)
 	if n < 0 || n > 6 {
 		return "*"
@@ -58,7 +57,7 @@ func WeekdayString(weekday time.Weekday) string {
 }
 
 // TodayDate 今天的日期
-func TodayDate(today time.Time) string {
+func TodayDate(today nostd.Time) string {
 	y := nostd.Itoa(today.Year())
 	m := nostd.Itoa(int(today.Month()))
 	d := nostd.Itoa(today.Day())
@@ -79,17 +78,17 @@ func GenerateStars(num int, max int) string {
 }
 
 // TimeToDateNumber 将日期转换为 int 描述，如 20120708
-func TimeToDateNumber(today time.Time) int {
+func TimeToDateNumber(today nostd.Time) int {
 	return today.Year()*10000 + int(today.Month())*100 + today.Day()
 }
 
 // IsWeekend 是否为周末
-func IsWeekend(today time.Time) bool {
+func IsWeekend(today nostd.Time) bool {
 	return today.Day() == 0 || today.Day() == 6
 }
 
 // GetActivities 去掉一些不合今日的事件
-func GetActivities(today time.Time) []ActivityItem {
+func GetActivities(today nostd.Time) []ActivityItem {
 	// 周末的话，只留下 weekend = true 的事件
 	if IsWeekend(today) {
 		result := make([]ActivityItem, 0)
@@ -109,7 +108,7 @@ type ActivityGoodBad struct {
 }
 
 // GetSpecials 今天的特别事件
-func GetSpecials(today time.Time) ActivityGoodBad {
+func GetSpecials(today nostd.Time) ActivityGoodBad {
 	goodList := make([]ActivityItem, 0)
 	badList := make([]ActivityItem, 0)
 	daySeed := TimeToDateNumber(today)
@@ -132,7 +131,7 @@ func GetSpecials(today time.Time) ActivityGoodBad {
 }
 
 // TodayLuck 生成今日运势
-func TodayLuck(today time.Time, n int) ActivityGoodBad {
+func TodayLuck(today nostd.Time, n int) ActivityGoodBad {
 	// daySeed := TimeToDateNumber(today)
 	numGood := n // RandomNumber(daySeed, 98)%3 + 2
 	numBad := n  // RandomNumber(daySeed, 87)%3 + 2
@@ -153,17 +152,17 @@ func TodayLuck(today time.Time, n int) ActivityGoodBad {
 }
 
 // TodayDirection 获得座位朝向
-func TodayDirection(today time.Time) string {
+func TodayDirection(today nostd.Time) string {
 	return DefineDirections[RandomNumber(TimeToDateNumber(today), 2)%len(DefineDirections)]
 }
 
 // TodayDrink 获得今日宜饮
-func TodayDrink(today time.Time) string {
+func TodayDrink(today nostd.Time) string {
 	list := PickRandomStringItems(today, DefineDrinks, 2)
 	return strings.Join(list, "，")
 }
 
 // TodayStars 获得女神亲近指数
-func TodayStars(today time.Time) string {
+func TodayStars(today nostd.Time) string {
 	return GenerateStars(RandomNumber(TimeToDateNumber(today), 6)%5+1, 5)
 }

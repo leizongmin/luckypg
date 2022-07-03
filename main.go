@@ -2,7 +2,6 @@ package main
 
 import (
 	"strings"
-	"time"
 
 	"github.com/leizongmin/luckypg/internal/console"
 	"github.com/leizongmin/luckypg/internal/data"
@@ -39,7 +38,7 @@ func init() {
 }
 
 func main() {
-	today := time.Now()
+	today := nostd.TimeNow()
 	L := func(s string) {
 		nostd.Println(s)
 	}

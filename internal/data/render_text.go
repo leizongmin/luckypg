@@ -2,7 +2,6 @@ package data
 
 import (
 	"strings"
-	"time"
 
 	"github.com/leizongmin/luckypg/internal/nostd"
 )
@@ -11,7 +10,7 @@ import (
 // %v = 随机变量名称
 // %t = 随机工具名称
 // %l = 随机整数
-func RenderText(today time.Time, event ActivityItem) ActivityItem {
+func RenderText(today nostd.Time, event ActivityItem) ActivityItem {
 	result := ActivityItem{
 		Name: event.Name,
 		Good: event.Good,
