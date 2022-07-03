@@ -8,8 +8,8 @@
 具有以下特点：
 
 - 完全静态编译，不需要依赖任何动态库，放哪里都能跑；
-- 可执行文件很小，在 macOS 上文件体积是 **16KB**，在 Linux 上文件体积是 **20KB**；
-- 执行很快，约 ~10ms；
+- 可执行文件很小，在 macOS 上文件体积约 **~25KB**，在 Linux 上文件体积约 **~32KB**（源码约 **~41KB**）；
+- 执行很快，约 ~10ms，不担心会影响打开 Shell 的速度；
 
 目前还存在的问题：
 
@@ -28,13 +28,15 @@ brew tap leizongmin/tools
 brew install luckypg
 ```
 
+然后将其添加到 `~/.profile` 文件，使得每次进入 Shell 的时候都会执行 `luckypg` 即可。
+
 或者通过 [Release](https://github.com/leizongmin/luckypg/releases) 页面下载，目前构建产物支持 macOS 和 Linux：
 
 - 下载对应系统的构建产物，例如在 macOS 上对应的是 `luckypg-macos`，将其保存到为`/usr/local/bin/luckypg`；
 - 然后将其添加到 `~/.profile` 文件，使得每次进入 Shell 的时候都会执行 `luckypg` 即可；
 - 可根据自己当前的环境灵活配置。
 
-FreeBSD 系统可以通过 **go** 命令自行构建：
+其他没有对应的预构建的系统，可以通过 **go** 命令自行构建，例如在 FreeBSD 可以执行以下命令：
 
 ```bash
 # 安装 go
@@ -56,16 +58,14 @@ wget https://go.dev/dl/go1.18.3.linux-amd64.tar.gz && \
 # 安装 tinygo
 wget https://github.com/tinygo-org/tinygo/releases/download/v0.23.0/tinygo_0.23.0_amd64.deb
 sudo dpkg -i tinygo_0.23.0_amd64.deb
-# 安装 upx
-apt install -y upx
 ```
 
 在 macOS 中初始化环境：
 
 ```bash
-# 安装 go、tinygo、upx
+# 安装 go、tinygo
 brew tap tinygo-org/tools
-brew install golang tinygo upx
+brew install golang tinygo
 ```
 
 构建：

@@ -26,13 +26,12 @@ jobs:
         run: |
           wget https://github.com/tinygo-org/tinygo/releases/download/v0.23.0/tinygo_0.23.0_amd64.deb
           sudo dpkg -i tinygo_0.23.0_amd64.deb
-          sudo apt update && sudo apt install -y upx
 
       - name: Install Dependencies on macOS
         if: ${{ matrix.os == 'macos-latest' }}
         run: |
           brew tap tinygo-org/tools
-          brew install tinygo upx
+          brew install tinygo
 
       - name: Build on Ubuntu
         if: ${{ matrix.os == 'ubuntu-latest' }}
