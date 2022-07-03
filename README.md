@@ -1,3 +1,5 @@
+[![Release](https://github.com/leizongmin/luckypg/actions/workflows/release.yml/badge.svg)](https://github.com/leizongmin/luckypg/actions/workflows/release.yml)
+
 # luckypg (Lucky Programmer)
 
 偶然间发现几年前写的一个有趣小工具 [命令行版程序员老黄历](https://github.com/leizongmin/programmer-calendar)，
@@ -6,7 +8,7 @@
 具有以下特点：
 
 - 完全静态编译，不需要依赖任何动态库，放哪里都能跑；
-- 可执行文件很小，在 macOS 上是 16KB，在 Linux 上是 20KB；
+- 可执行文件很小，在 macOS 上文件体积是 **16KB**，在 Linux 上文件体积是 20KB；
 - 执行很快，约 ~10ms；
 
 目前还存在的问题：
