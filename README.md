@@ -21,10 +21,18 @@
 
 ## 使用
 
-可通过 [Release](https://github.com/leizongmin/luckypg/releases) 页面下载，目前构建产物支持 macOS 和 Linux。
+在 macOS 和 Linux 上可以通过 **brew** 命令进行安装：
 
-下载对应系统的构建产物，例如在 macOS 上对应的是 `luckypg-macos`，将其保存到为`/usr/local/bin/luckypg`，
-然后将其添加到 `~/.profile` 文件，使得每次进入 Shell 的时候都会执行 `luckypg` 即可，可根据自己当前的环境灵活配置。
+```bash
+brew tap leizongmin/tools
+brew install luckypg
+```
+
+或者通过 [Release](https://github.com/leizongmin/luckypg/releases) 页面下载，目前构建产物支持 macOS 和 Linux：
+
+- 下载对应系统的构建产物，例如在 macOS 上对应的是 `luckypg-macos`，将其保存到为`/usr/local/bin/luckypg`；
+- 然后将其添加到 `~/.profile` 文件，使得每次进入 Shell 的时候都会执行 `luckypg` 即可；
+- 可根据自己当前的环境灵活配置。
 
 FreeBSD 系统可以通过 **go** 命令自行构建：
 
