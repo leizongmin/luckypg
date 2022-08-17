@@ -40,7 +40,8 @@ func PickRandomStringItems(today nostd.Time, array []string, size int) []string 
 func PickRandomActivity(today nostd.Time, list []ActivityItem, size int) []ActivityItem {
 	pickedEvents := PickRandomActivityItems(today, list, size)
 	for i, item := range pickedEvents {
-		pickedEvents[i] = RenderText(today, item)
+		pickedEvents[i] = item
+		pickedEvents[i].Name = RenderText(today, item.Name)
 	}
 	return pickedEvents
 }

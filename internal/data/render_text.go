@@ -8,27 +8,20 @@ import (
 // %v = 随机变量名称
 // %t = 随机工具名称
 // %l = 随机整数
-func RenderText(today nostd.Time, event ActivityItem) ActivityItem {
-	result := ActivityItem{
-		Name: event.Name,
-		Good: event.Good,
-		Bad:  event.Bad,
-	}
+func RenderText(today nostd.Time, s string) string {
 	dayNum := TimeToDateNumber(today)
-	if nostd.Contains(result.Name, "%v") {
-		s := DefineVariableNames[RandomNumber(dayNum, 12)%len(DefineVariableNames)]
-		result.Name = nostd.ReplaceAll(result.Name, "%v", s)
+
+	if nostd.Contains(s, "%v") {
+		s = nostd.ReplaceAll(s, "%v", DefineVariableNames[RandomNumber(dayNum, 12)%len(DefineVariableNames)])
 	}
 
-	if nostd.Contains(result.Name, "%t") {
-		s := DefineTools[RandomNumber(dayNum, 11)%len(DefineTools)]
-		result.Name = nostd.ReplaceAll(result.Name, "%t", s)
+	if nostd.Contains(s, "%t") {
+		s = nostd.ReplaceAll(s, "%t", DefineTools[RandomNumber(dayNum, 11)%len(DefineTools)])
 	}
 
-	if nostd.Contains(result.Name, "%l") {
-		s := nostd.Itoa(RandomNumber(dayNum, 12)%247 + 30)
-		result.Name = nostd.ReplaceAll(result.Name, "%l", s)
+	if nostd.Contains(s, "%l") {
+		s = nostd.ReplaceAll(s, "%l", nostd.Itoa(RandomNumber(dayNum, 12)%247+30))
 	}
 
-	return result
+	return s
 }

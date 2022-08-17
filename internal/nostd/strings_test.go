@@ -4,13 +4,15 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+
+	"github.com/leizongmin/luckypg/internal/testutil"
 )
 
 func TestContains(t *testing.T) {
 	s := "今天的天气真好，abc，万里无云678"
 	test := func(s string, substr string) {
 		fmt.Println(strings.Contains(s, substr) == Contains(s, substr), "\t|\t", strings.Contains(s, substr), "\t|\t", Contains(s, substr))
-		assert(strings.Contains(s, substr) == Contains(s, substr))
+		testutil.Assert(strings.Contains(s, substr) == Contains(s, substr))
 	}
 	test(s, "")
 	test(s, "天气")
@@ -18,12 +20,14 @@ func TestContains(t *testing.T) {
 	test(s, "无云6")
 	test(s, "很好")
 	test(s, "xyz")
+	test(s, s)
+	test("v=%v", "%v")
 }
 
 func TestRepeat(t *testing.T) {
 	test := func(s string, count int) {
 		fmt.Println(Repeat(s, count) == strings.Repeat(s, count), "\t|\t", strings.Repeat(s, count), "\t|\t", Repeat(s, count))
-		assert(Repeat(s, count) == strings.Repeat(s, count))
+		testutil.Assert(Repeat(s, count) == strings.Repeat(s, count))
 	}
 	test("a", 1)
 	test("abc", 10)
@@ -34,7 +38,7 @@ func TestRepeat(t *testing.T) {
 func TestJoin(t *testing.T) {
 	test := func(elems []string, sep string) {
 		fmt.Println(strings.Join(elems, sep) == Join(elems, sep), "\t|\t", strings.Join(elems, sep), "\t|\t", Join(elems, sep))
-		assert(strings.Join(elems, sep) == Join(elems, sep))
+		testutil.Assert(strings.Join(elems, sep) == Join(elems, sep))
 	}
 	test([]string{}, "x")
 	test([]string{"Y"}, "x")
@@ -45,10 +49,10 @@ func TestJoin(t *testing.T) {
 }
 
 func TestReplaceAll(t *testing.T) {
-	s := "今天的天气真好，abc，万里无云678"
+	s := "今天的天气真好，abc，万里无云678abcabc"
 	test := func(s string, old string, new string) {
 		fmt.Println(strings.ReplaceAll(s, old, new) == ReplaceAll(s, old, new), "\t|\t", strings.ReplaceAll(s, old, new), "\t|\t", ReplaceAll(s, old, new))
-		assert(strings.ReplaceAll(s, old, new) == ReplaceAll(s, old, new))
+		testutil.Assert(strings.ReplaceAll(s, old, new) == ReplaceAll(s, old, new))
 	}
 	test(s, "xx", "yy")
 	test(s, "云6", "yy")
@@ -56,12 +60,15 @@ func TestReplaceAll(t *testing.T) {
 	test(s, "真好", "很好")
 	test(s, "", "x")
 	test(s, "", "很好")
+	test(s, "abc", "xyz")
+	test(s, s, "")
+	test(s, s, "很好ok")
 }
 
 func TestTrim(t *testing.T) {
 	test := func(s string, cutset string) {
 		fmt.Println(strings.Trim(s, cutset) == Trim(s, cutset), "\t|\t", strings.Trim(s, cutset), "\t|\t", Trim(s, cutset))
-		assert(strings.Trim(s, cutset) == Trim(s, cutset))
+		testutil.Assert(strings.Trim(s, cutset) == Trim(s, cutset))
 	}
 	test("今天的天气真好，abc，万里无云678", "")
 	test("今天的天气真好，abc，万里无云678", "\n")
@@ -80,7 +87,7 @@ func TestSplit(t *testing.T) {
 		s2 := "\"" + strings.Join(r2, "\",\"") + "\""
 		ok := len(r1) == len(r2) && s1 == s2
 		fmt.Println(ok, "\t|\t", s1, "\t|\t", s2)
-		assert(ok)
+		testutil.Assert(ok)
 	}
 	test("", "")
 	test("", "\n")

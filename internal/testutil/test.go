@@ -1,6 +1,6 @@
-package nostd
+package testutil
 
-func assert(ok bool) {
+func Assert(ok bool) {
 	if !ok {
 		panic("assert failed")
 	}

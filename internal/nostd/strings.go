@@ -10,7 +10,7 @@ func Contains(s string, substr string) bool {
 	}
 	r1 := []rune(s)
 	r2 := []rune(substr)
-	for i := 0; i < len(r1)-len(r2); i++ {
+	for i := 0; i <= len(r1)-len(r2); i++ {
 		if isRunesEqual(r1[i:i+len(r2)], r2) {
 			return true
 		}
@@ -33,7 +33,7 @@ func ReplaceAll(s string, old string, new string) string {
 	}
 	r2 := []rune(old)
 	for i := 0; i < len(r1); i++ {
-		if i < len(r1)-len(r2) && isRunesEqual(r1[i:i+len(r2)], r2) {
+		if i <= len(r1)-len(r2) && isRunesEqual(r1[i:i+len(r2)], r2) {
 			s2 += new
 			i += len(r2) - 1
 		} else {
