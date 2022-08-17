@@ -1,4 +1,7 @@
 [![Release](https://github.com/leizongmin/luckypg/actions/workflows/release.yml/badge.svg)](https://github.com/leizongmin/luckypg/actions/workflows/release.yml)
+[![PkgGoDev](https://pkg.go.dev/badge/leizongmin/luckypg)](https://pkg.go.dev/leizongmin/luckypg)
+[![Go Report Card](https://goreportcard.com/badge/leizongmin/luckypg)](https://goreportcard.com/report/github.com/leizongmin/luckypg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fleizongmin%2Fluckypg.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fleizongmin%2Fluckypg?ref=badge_shield)
 
 # luckypg (Lucky Programmer)
 
