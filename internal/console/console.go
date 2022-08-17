@@ -30,9 +30,8 @@ func GetCharDisplayLength(c rune) int {
 
 func TextRemoveExceed(s string, n int) string {
 	count := 0
-	runes := []rune(TextStripAnsi(s))
 	result := make([]rune, 0)
-	for _, r := range runes {
+	for _, r := range TextStripAnsi(s) {
 		count += GetCharDisplayLength(r)
 		if count < n {
 			result = append(result, r)
@@ -46,8 +45,7 @@ func TextRemoveExceed(s string, n int) string {
 // TextDisplayLength 获取文本在控制台的显示宽度，自动忽略 ANSI Color 字符
 func TextDisplayLength(s string) int {
 	count := 0
-	runes := []rune(TextStripAnsi(s))
-	for _, r := range runes {
+	for _, r := range TextStripAnsi(s) {
 		count += GetCharDisplayLength(r)
 	}
 	return count
