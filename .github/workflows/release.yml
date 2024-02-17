@@ -52,13 +52,13 @@ jobs:
 
       - name: Upload artifacts on Ubuntu
         if: ${{ matrix.os == 'ubuntu-latest' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: out/luckypg-linux
 
       - name: Upload artifacts on macOS
         if: ${{ matrix.os == 'macos-latest' }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           path: out/luckypg-macos
 
@@ -68,7 +68,7 @@ jobs:
     steps:
 
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
 
       - name: Display structure of downloaded files
         run: ls -R
